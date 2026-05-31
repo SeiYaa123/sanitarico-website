@@ -1,6 +1,7 @@
 services:
+  # Static Site (recommandé — zéro serveur Node requis)
   - type: web
-    name: sanitarico-website
+    name: sanitarico-website-static
     runtime: static
     buildCommand: npm install && npm run build
     staticPublishPath: ./out
@@ -15,3 +16,14 @@ services:
       - path: "/*"
         name: Referrer-Policy
         value: strict-origin-when-cross-origin
+
+  # Web Service Node.js (si tu gardes le service existant)
+  - type: web
+    name: sanitarico-website-node
+    runtime: node
+    buildCommand: npm install && npm run build
+    startCommand: npm run start
+    envVars:
+      - key: NODE_VERSION
+        value: 22
+    pullRequestPreviewsEnabled: true
