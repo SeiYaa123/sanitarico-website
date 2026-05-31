@@ -17,11 +17,14 @@ export function CtaSection() {
             id="cta-heading"
             className="font-serif text-4xl font-bold text-slate-950 md:text-5xl"
           >
-            Votre projet mérite un devis sérieux.
+            La seule chose qui sépare votre projet
+            de la réalité, c&rsquo;est un appel.
           </h2>
           <p className="mx-auto mt-6 max-w-2xl text-lg text-slate-800">
-            Réponse garantie sous {COMPANY.quotePromiseHours}h. Visite technique
-            offerte. Simulation primes Renolution incluse. Sans engagement.
+            Vous avez lu nos avis. Vous connaissez notre approche. Vous savez
+            qu&rsquo;on gère les primes à votre place. Il ne manque qu&rsquo;une
+            chose&nbsp;: votre premier contact. Gratuit. Sans engagement.
+            Réponse sous {COMPANY.quotePromiseHours}h.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center justify-center gap-4">

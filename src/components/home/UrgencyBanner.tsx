@@ -9,10 +9,9 @@ const MONTH_LABEL = "juillet 2026";
 export function UrgencyBanner() {
   return (
     /*
-      role="region" + aria-label creates a named landmark region.
-      Avoids duplicating the page's banner landmark (already owned by <header>
-      in StickyHeader). Screen readers surface named regions in their
-      landmark navigation menus, giving this strip appropriate prominence.
+      role="region" + aria-label creates a named landmark without duplicating
+      the page's existing <header> banner landmark (owned by StickyHeader).
+      Screen readers surface named regions in landmark navigation.
     */
     <div
       role="region"
@@ -29,12 +28,18 @@ export function UrgencyBanner() {
 
         {/* Left: pulsing badge + message */}
         <div className="flex min-w-0 items-center gap-3">
-          {/* Pulsing red dot — conveys urgency, hidden from screen readers (text carries the message) */}
+          {/*
+            Pulsing dot — purely decorative, conveys urgency visually.
+            aria-hidden: the message text carries the same urgency signal
+            for screen reader users.
+            motion-safe:animate-ping respects prefers-reduced-motion:
+            the ping runs only when the user has not requested reduced motion.
+          */}
           <span
             className="relative flex h-5 w-5 shrink-0 items-center justify-center"
             aria-hidden="true"
           >
-            <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-red-500 opacity-60" />
+            <span className="absolute inline-flex h-full w-full motion-safe:animate-ping rounded-full bg-red-500 opacity-60" />
             <span className="relative inline-flex h-3 w-3 rounded-full bg-red-500" />
           </span>
 

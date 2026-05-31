@@ -62,11 +62,11 @@ export function HomeFaq() {
         </RevealOnScroll>
 
         {/*
-          Accordion list — native <details>/<summary> for:
-          - Full keyboard access (Enter/Space to toggle)
-          - Screen reader disclosure widget semantics
-          - Zero JS (CSS-only open/close animation)
-          - Content always in DOM for SEO crawling
+          Native <details>/<summary> accordion:
+          - Full keyboard access: Enter/Space toggles, no JS required
+          - Screen reader announces as "disclosure widget"
+          - Answer content is always in DOM (SEO-friendly)
+          - <ul role="list"> re-adds list semantics stripped by list-none in Safari/VoiceOver
         */}
         <ul
           className="mt-14 list-none divide-y divide-slate-800"
@@ -112,31 +112,27 @@ function FaqAccordionItem({
 }) {
   return (
     /*
-      <details> is a valid child of <li>.
-      Wrapping div uses Tailwind's `group` to drive descendant-based styles
-      when details[open] is present via `group-has-[details[open]]`.
+      .group drives the chevron rotation and colour changes via
+      group-has-[details[open]] — targets when any descendant <details>
+      carries the [open] attribute (set by the browser on expand).
+      Tailwind v4 supports arbitrary compound selectors in has-[].
     */
     <div className="group">
       <details>
         <summary
           id={`faq-question-${index}`}
           className={[
-            "flex cursor-pointer list-none select-none items-center justify-between gap-4",
+            "flex cursor-pointer select-none items-center justify-between gap-4",
             "py-5 text-left",
             "text-base font-semibold text-white",
-            "transition-colors hover:text-amber-400",
-            // Remove the default browser disclosure triangle across all engines
-            "[&::-webkit-details-marker]:hidden [&::marker]:hidden",
+            "transition-colors duration-200 hover:text-amber-400",
+            // Hide browser-native disclosure triangle across all engines
+            "list-none [&::-webkit-details-marker]:hidden [&::marker]:hidden",
           ].join(" ")}
         >
           <span>{item.question}</span>
 
-          {/*
-            Chevron rotates 180° when details is open.
-            group-has-[details[open]] targets the wrapping .group element
-            when any descendant <details> has the [open] attribute.
-            Tailwind v4 supports arbitrary selector variants.
-          */}
+          {/* Chevron — aria-hidden because summary text is the accessible label */}
           <span
             className={[
               "flex h-7 w-7 shrink-0 items-center justify-center",
@@ -168,15 +164,19 @@ function FaqAccordionItem({
           </span>
         </summary>
 
-        {/* Answer panel — rendered in DOM always, shown/hidden by browser via details[open] */}
+        {/*
+          Answer panel.
+          Omitting role="region" here intentionally: applying region to every
+          accordion item (×6) creates excessive landmark clutter in screen
+          reader navigation menus. The <details>/<summary> disclosure semantics
+          are sufficient — the browser announces open/closed state correctly.
+        */}
         <div
           id={`faq-answer-${index}`}
-          role="region"
           aria-labelledby={`faq-question-${index}`}
           className={[
             "pb-5 pr-11",
             "text-sm leading-relaxed text-slate-400",
-            // Amber left accent bar echoes brand accent without overloading
             "border-l-2 border-amber-500/30 pl-4",
           ].join(" ")}
         >
