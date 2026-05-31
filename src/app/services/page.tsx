@@ -3,24 +3,40 @@ import Link from "next/link";
 import { Check, ArrowRight } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { CtaSection } from "@/components/home/CtaSection";
-import { ROUTES } from "@/lib/constants";
+import { COMPANY, ROUTES } from "@/lib/constants";
 import { serviceBouquets } from "@/data/services";
+import { buildBreadcrumbJsonLd, buildServiceJsonLd, safeJsonLd } from "@/lib/seo/jsonLd";
 import { cn } from "@/lib/utils/cn";
 
 export const metadata: Metadata = {
-  title: "Nos Services",
+  title: "Services Rénovation, Plomberie & Chauffage — Bruxelles",
   description:
-    "Rénovation Signature, Transition Énergétique, Contrat Tranquillité — découvrez nos trois bouquets de services pour votre rénovation à Bruxelles.",
+    "Rénovation Signature, Transition Énergétique, Contrat Tranquillité — trois bouquets de services complets pour votre rénovation premium à Bruxelles.",
+  alternates: { canonical: `${COMPANY.website}/services/` },
 };
 
 export default function ServicesPage() {
+  const breadcrumb = buildBreadcrumbJsonLd([
+    { name: "Accueil", url: COMPANY.website },
+    { name: "Services", url: `${COMPANY.website}/services/` },
+  ]);
+
+  const servicesJsonLd = serviceBouquets.map((b) =>
+    buildServiceJsonLd(b.name, b.description, b.slug)
+  );
+
   return (
     <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(breadcrumb) }} />
+      {servicesJsonLd.map((schema, i) => (
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(schema) }} />
+      ))}
       <div className="bg-slate-950 px-4 py-32 sm:px-6 lg:px-8">
         <div className="mx-auto max-w-7xl">
           <SectionHeading
             eyebrow="Nos bouquets de services"
-            title="Choisissez votre projet"
+            title="Services de rénovation à Bruxelles"
+            as="h1"
             subtitle="Trois offres pensées pour couvrir tous vos besoins, sans avoir à gérer plusieurs artisans."
             centered
             className="mx-auto mb-20 max-w-2xl"
@@ -51,6 +67,9 @@ export default function ServicesPage() {
                     </p>
                     <p className="mt-4 leading-relaxed text-slate-400">
                       {bouquet.description}
+                    </p>
+                    <p className="mt-3 text-sm font-semibold text-amber-400">
+                      {bouquet.priceFrom}
                     </p>
                     <Link
                       href={`${ROUTES.quote}?service=${bouquet.slug}`}

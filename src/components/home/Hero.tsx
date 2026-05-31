@@ -1,6 +1,6 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 import { PhoneCta } from "@/components/ui/PhoneCta";
@@ -11,6 +11,7 @@ const BADGE_ITEMS = [
   "30 ans d'expertise",
   "Devis en 48h",
   "Garantie décennale",
+  "TVA 6% appliquée",
 ] as const;
 
 export function Hero() {
@@ -47,14 +48,12 @@ function BackgroundGradient() {
 }
 
 function HeroContent() {
+  const shouldReduce = useReducedMotion();
   return (
     <motion.div
-      initial={{ opacity: 0, y: 32 }}
+      initial={shouldReduce ? false : { opacity: 0, y: 32 }}
       animate={{ opacity: 1, y: 0 }}
-      transition={{
-        duration: ANIMATION.durationNormal,
-        ease: ANIMATION.easeOutExpo,
-      }}
+      transition={shouldReduce ? { duration: 0 } : { duration: ANIMATION.durationNormal, ease: ANIMATION.easeOutExpo }}
     >
       <div className="mb-6 flex flex-wrap gap-2">
         {BADGE_ITEMS.map((item) => (
@@ -90,6 +89,7 @@ function HeroContent() {
 }
 
 function HeroStats() {
+  const shouldReduce = useReducedMotion();
   const stats = [
     { value: `${COMPANY.yearsExperience}+`, label: "ans d'expérience" },
     { value: `${COMPANY.projectsCompleted}+`, label: "projets réalisés" },
@@ -99,13 +99,13 @@ function HeroStats() {
 
   return (
     <motion.div
-      initial={{ opacity: 0, x: 32 }}
+      initial={shouldReduce ? false : { opacity: 0, x: 32 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{
-        duration: ANIMATION.durationNormal,
-        delay: 0.2,
-        ease: ANIMATION.easeOutExpo,
-      }}
+      transition={
+        shouldReduce
+          ? { duration: 0 }
+          : { duration: ANIMATION.durationNormal, delay: 0.2, ease: ANIMATION.easeOutExpo }
+      }
       className="grid grid-cols-2 gap-6"
     >
       {stats.map((stat, index) => (

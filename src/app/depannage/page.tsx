@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Phone, Clock, Wrench, Shield } from "lucide-react";
+import { Phone, Clock, Wrench, Shield, Droplets, Flame, AlertCircle, Thermometer } from "lucide-react";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { PhoneCta } from "@/components/ui/PhoneCta";
 import { COMPANY, ROUTES } from "@/lib/constants";
+import { buildFaqJsonLd, safeJsonLd } from "@/lib/seo/jsonLd";
 
 export const metadata: Metadata = {
   title: "Dépannage Urgence Bruxelles 24h/7j",
@@ -13,38 +14,62 @@ export const metadata: Metadata = {
 
 const EMERGENCY_SERVICES = [
   {
-    icon: Wrench,
+    icon: Droplets,
     title: "Fuite d'eau",
     description:
       "Fuite sous évier, robinet qui coule, canalisation percée — intervention immédiate pour limiter les dégâts.",
   },
   {
-    icon: Wrench,
+    icon: Flame,
     title: "Chaudière en panne",
     description:
       "Plus de chauffage ni d'eau chaude — dépannage toutes marques, diagnostic et réparation sur place.",
   },
   {
-    icon: Wrench,
+    icon: AlertCircle,
     title: "Débouchage urgent",
     description:
       "WC bouché, évier bloqué, canalisation obstruée — débouchage professionnel immédiat.",
   },
   {
-    icon: Wrench,
+    icon: Thermometer,
     title: "Radiateur défectueux",
     description:
       "Radiateur qui ne chauffe pas, purge nécessaire, remplacement d'urgence en cas de fuite.",
   },
 ] as const;
 
+const DEPANNAGE_FAQ = [
+  {
+    question: "Intervenez-vous le week-end et les jours fériés ?",
+    answer: "Oui, notre service de dépannage est disponible 7j/7, 24h/24, jours fériés inclus. Appelez-nous directement.",
+  },
+  {
+    question: "Quel est le délai d'intervention pour un dépannage urgent ?",
+    answer: "Nous nous engageons à intervenir dans les meilleurs délais. Pour les urgences critiques (fuite active, absence totale de chauffage en hiver), nos équipes sont dépêchées en priorité.",
+  },
+  {
+    question: "Le déplacement est-il facturé ?",
+    answer: "Le tarif de déplacement vous est communiqué avant toute intervention. Nous établissons un devis sur place avant de commencer les travaux.",
+  },
+  {
+    question: "Quelles marques de chaudières réparez-vous ?",
+    answer: "Nos techniciens interviennent sur toutes les marques : Bulex, Vaillant, Viessmann, Junkers, Ariston, De Dietrich, et autres.",
+  },
+];
+
 export default function DepannagePage() {
+  const faqJsonLd = buildFaqJsonLd(DEPANNAGE_FAQ);
   return (
-    <div className="bg-slate-950">
-      <HeroDepannage />
-      <EmergencyServices />
-      <DepannageProcess />
-    </div>
+    <>
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: safeJsonLd(faqJsonLd) }} />
+      <div className="bg-slate-950">
+        <HeroDepannage />
+        <EmergencyServices />
+        <FaqSection />
+        <DepannageProcess />
+      </div>
+    </>
   );
 }
 
@@ -86,11 +111,12 @@ function HeroDepannage() {
 
 function EmergencyServices() {
   return (
-    <section className="px-4 py-20 sm:px-6 lg:px-8">
+    <section className="px-4 py-20 sm:px-6 lg:px-8" aria-labelledby="emergency-heading">
       <div className="mx-auto max-w-7xl">
         <SectionHeading
           eyebrow="Nos interventions d'urgence"
           title="On gère toutes les situations"
+          headingId="emergency-heading"
           centered
           className="mx-auto mb-12 max-w-xl"
         />
@@ -110,6 +136,29 @@ function EmergencyServices() {
             </li>
           ))}
         </ul>
+      </div>
+    </section>
+  );
+}
+
+function FaqSection() {
+  return (
+    <section className="px-4 py-16 sm:px-6 lg:px-8" aria-labelledby="faq-heading">
+      <div className="mx-auto max-w-3xl">
+        <SectionHeading
+          eyebrow="Questions fréquentes"
+          title="Tout savoir sur notre dépannage"
+          headingId="faq-heading"
+          className="mb-10"
+        />
+        <dl className="space-y-6">
+          {DEPANNAGE_FAQ.map((item) => (
+            <div key={item.question} className="rounded-xl border border-slate-800 bg-slate-900/50 p-6">
+              <dt className="font-semibold text-white">{item.question}</dt>
+              <dd className="mt-2 text-sm leading-relaxed text-slate-400">{item.answer}</dd>
+            </div>
+          ))}
+        </dl>
       </div>
     </section>
   );

@@ -1,7 +1,6 @@
 import Link from "next/link";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, Phone } from "lucide-react";
 import { RevealOnScroll } from "@/components/ui/RevealOnScroll";
-import { PhoneCta } from "@/components/ui/PhoneCta";
 import { COMPANY, ROUTES } from "@/lib/constants";
 
 export function CtaSection() {
@@ -36,8 +35,10 @@ export function CtaSection() {
             <a
               href={COMPANY.phoneHref}
               className="inline-flex items-center gap-2 rounded-xl border-2 border-slate-950/30 px-8 py-4 font-semibold text-slate-950 transition-colors hover:bg-slate-950/10"
+              aria-label={`Appeler Sanitari&Co au ${COMPANY.phone}`}
             >
-              <PhoneCta variant="header" className="bg-transparent text-slate-950 hover:bg-transparent px-0 py-0 text-base font-semibold" />
+              <Phone className="h-4 w-4" aria-hidden="true" />
+              {COMPANY.phone}
             </a>
           </div>
         </RevealOnScroll>

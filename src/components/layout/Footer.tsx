@@ -12,8 +12,6 @@ const SERVICE_LINKS = [
 const COMPANY_LINKS = [
   { label: "Nos réalisations", href: ROUTES.portfolio },
   { label: "À propos", href: ROUTES.about },
-  { label: "Carrières", href: "/carrieres" },
-  { label: "Blog", href: ROUTES.blog },
   { label: "Mentions légales", href: ROUTES.mentions },
 ];
 

@@ -1,9 +1,14 @@
-import { COMPANY, ROUTES } from "@/lib/constants";
+import { COMPANY, ROUTES, BRUSSELS_COMMUNES } from "@/lib/constants";
+
+export function safeJsonLd(data: unknown): string {
+  return JSON.stringify(data).replace(/<\/script>/gi, "<\\/script>");
+}
 
 export function buildLocalBusinessJsonLd() {
   return {
     "@context": "https://schema.org",
     "@type": "LocalBusiness",
+    "@id": `${COMPANY.website}/#localbusiness`,
     name: COMPANY.legalName,
     image: `${COMPANY.website}/og-image.jpg`,
     url: COMPANY.website,
@@ -11,8 +16,8 @@ export function buildLocalBusinessJsonLd() {
     email: COMPANY.email,
     address: {
       "@type": "PostalAddress",
-      streetAddress: "Schaerbeek",
       addressLocality: COMPANY.city,
+      addressRegion: COMPANY.region,
       postalCode: COMPANY.postalCode,
       addressCountry: COMPANY.country,
     },
@@ -33,12 +38,14 @@ export function buildLocalBusinessJsonLd() {
       "@type": "AggregateRating",
       ratingValue: COMPANY.averageRating,
       reviewCount: COMPANY.totalReviews,
+      bestRating: "5",
+      worstRating: "1",
     },
     priceRange: "€€€",
-    areaServed: {
+    areaServed: BRUSSELS_COMMUNES.map((commune) => ({
       "@type": "City",
-      name: COMPANY.city,
-    },
+      name: commune,
+    })),
   };
 }
 
@@ -54,6 +61,7 @@ export function buildServiceJsonLd(
     description,
     provider: {
       "@type": "LocalBusiness",
+      "@id": `${COMPANY.website}/#localbusiness`,
       name: COMPANY.legalName,
     },
     areaServed: COMPANY.city,
@@ -74,6 +82,21 @@ export function buildFaqJsonLd(
         "@type": "Answer",
         text: item.answer,
       },
+    })),
+  };
+}
+
+export function buildBreadcrumbJsonLd(
+  crumbs: Array<{ name: string; url: string }>
+) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: crumbs.map((crumb, index) => ({
+      "@type": "ListItem",
+      position: index + 1,
+      name: crumb.name,
+      item: crumb.url,
     })),
   };
 }

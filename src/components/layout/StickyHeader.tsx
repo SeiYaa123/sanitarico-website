@@ -53,7 +53,7 @@ export function StickyHeader() {
               <li key={link.href}>
                 <Link
                   href={link.href}
-                  className="text-sm font-medium text-slate-300 transition-colors hover:text-white"
+                  className="text-sm font-medium text-slate-300 transition-colors hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 rounded"
                 >
                   {link.label}
                 </Link>
@@ -64,10 +64,11 @@ export function StickyHeader() {
           <div className="flex items-center gap-3">
             <PhoneCta variant="header" className="hidden sm:inline-flex" />
             <button
-              className="rounded-lg p-2 text-slate-300 hover:text-white md:hidden"
+              className="rounded-lg p-2 text-slate-300 hover:text-white focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-amber-500 md:hidden"
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               aria-label={isMobileMenuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               aria-expanded={isMobileMenuOpen}
+              aria-controls="mobile-menu"
             >
               {isMobileMenuOpen ? (
                 <X className="h-6 w-6" />
@@ -79,7 +80,7 @@ export function StickyHeader() {
         </nav>
 
         {isMobileMenuOpen && (
-          <div className="border-t border-slate-800 bg-slate-950 px-4 pb-6 pt-4 md:hidden">
+          <div id="mobile-menu" className="border-t border-slate-800 bg-slate-950 px-4 pb-6 pt-4 md:hidden">
             <ul className="space-y-4" role="list">
               {NAV_LINKS.map((link) => (
                 <li key={link.href}>

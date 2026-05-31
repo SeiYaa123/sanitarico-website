@@ -14,13 +14,16 @@ export interface ImageAsset {
   height: number;
 }
 
+export type ServiceIcon = "Sparkles" | "Zap" | "Shield";
+
 export interface ServiceBouquet {
   slug: ServiceSlug;
   name: string;
   tagline: string;
   description: string;
   features: readonly string[];
-  icon: string;
+  priceFrom: string;
+  icon: ServiceIcon;
   highlighted: boolean;
 }
 
@@ -52,14 +55,6 @@ export interface Certification {
   name: string;
   description: string;
   icon: string;
-}
-
-export interface QuoteFormData {
-  fullName: string;
-  email: string;
-  phone: string;
-  serviceSlug: ServiceSlug;
-  projectDescription: string;
 }
 
 export interface NavLink {
