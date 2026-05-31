@@ -6,6 +6,9 @@ export const projects: Project[] = [
     title: "Salle de bain spa — Ixelles",
     category: "renovation-signature",
     location: "Ixelles, Bruxelles",
+    areaSqm: 11,
+    durationDays: 12,
+    budgetRange: "12.000–18.000€",
     before: {
       src: "/images/projects/p1-before.jpg",
       alt: "Salle de bain avant rénovation à Ixelles — carrelage vieilli, baignoire ancienne",
@@ -24,6 +27,9 @@ export const projects: Project[] = [
     title: "Cuisine ouverte — Woluwé-Saint-Lambert",
     category: "renovation-signature",
     location: "Woluwé-Saint-Lambert, Bruxelles",
+    areaSqm: 22,
+    durationDays: 18,
+    budgetRange: "25.000–35.000€",
     before: {
       src: "/images/projects/p2-before.jpg",
       alt: "Cuisine fermée avant rénovation — meubles années 90, faible luminosité",
@@ -42,6 +48,9 @@ export const projects: Project[] = [
     title: "Pompe à chaleur + isolation — Schaerbeek",
     category: "transition-energetique",
     location: "Schaerbeek, Bruxelles",
+    durationDays: 8,
+    budgetRange: "15.000–22.000€",
+    savedPrimes: "9.800€ récupérés",
     before: {
       src: "/images/projects/p3-before.jpg",
       alt: "Chaufferie avant — vieille chaudière gaz à remplacer",
@@ -60,6 +69,10 @@ export const projects: Project[] = [
     title: "Rénovation complète maison de maître — Uccle",
     category: "renovation-signature",
     location: "Uccle, Bruxelles",
+    areaSqm: 280,
+    durationDays: 45,
+    budgetRange: "85.000–120.000€",
+    savedPrimes: "14.200€ récupérés",
     before: {
       src: "/images/projects/p4-before.jpg",
       alt: "Maison de maître avant rénovation totale — état général dégradé",
@@ -69,6 +82,27 @@ export const projects: Project[] = [
     after: {
       src: "/images/projects/p4-after.jpg",
       alt: "Maison de maître après rénovation complète — cuisine, 2 salles de bain, chauffage, électricité",
+      width: 800,
+      height: 600,
+    },
+  },
+  {
+    id: "p5",
+    title: "Salle de bain + WC — Etterbeek",
+    category: "renovation-signature",
+    location: "Etterbeek, Bruxelles",
+    areaSqm: 8,
+    durationDays: 9,
+    budgetRange: "9.000–13.000€",
+    before: {
+      src: "/images/projects/p5-before.jpg",
+      alt: "Salle de bain et WC avant rénovation à Etterbeek — sanitaires vétustes, espace cloisonné",
+      width: 800,
+      height: 600,
+    },
+    after: {
+      src: "/images/projects/p5-after.jpg",
+      alt: "Salle de bain et WC après rénovation à Etterbeek — douche compacte, meuble suspendu, optimisation de l'espace",
       width: 800,
       height: 600,
     },

@@ -3,37 +3,37 @@ import type { ProcessStep } from "@/types";
 export const processSteps: ProcessStep[] = [
   {
     order: 1,
-    title: "Devis gratuit en 48h",
+    title: "Devis gratuit sous 48h",
     description:
-      "Contactez-nous par téléphone ou via le formulaire. Nous revenons vers vous dans les 48h avec un premier chiffrage sans engagement.",
+      "Nous vous rappelons dans les 48h ouvrées. Pas d'attente, pas de standardiste : vous parlez directement à un technicien qui connaît votre type de logement.",
     icon: "MessageSquare",
   },
   {
     order: 2,
     title: "Visite technique offerte",
     description:
-      "Un expert se déplace chez vous pour évaluer précisément les travaux, prendre les mesures et identifier les contraintes techniques.",
+      "Un artisan sénior — pas un commercial — se déplace chez vous. Il mesure, photographie, identifie les contraintes. Durée : 45 à 90 minutes selon la complexité.",
     icon: "Home",
   },
   {
     order: 3,
-    title: "Devis détaillé + primes calculées",
+    title: "Devis poste par poste + primes simulées",
     description:
-      "Vous recevez un devis transparent poste par poste, accompagné d'une simulation de vos primes Renolution potentielles. Aucune surprise.",
+      "Sous 5 jours ouvrés, vous recevez le devis ligne par ligne et la simulation Renolution chiffrée. Chaque poste est justifié. Aucun forfait flou.",
     icon: "FileText",
   },
   {
     order: 4,
-    title: "Chantier suivi avec vous",
+    title: "Chantier planifié à la semaine",
     description:
-      "Nos artisans interviennent selon le planning convenu. Vous recevez un point hebdomadaire et pouvez nous joindre à tout moment.",
+      "Vous recevez le planning semaine par semaine. Point WhatsApp chaque vendredi. Photos d'avancement incluses. Votre maison reste propre : bâches et protections systématiques.",
     icon: "Wrench",
   },
   {
     order: 5,
-    title: "Réception & garantie écrite",
+    title: "Réception en votre présence",
     description:
-      "Nous effectuons ensemble la réception des travaux. Vous recevez votre garantie écrite et notre numéro direct pour tout suivi.",
+      "Vous visitez le chantier terminé avec votre artisan référent. Chaque point est vérifié ensemble. La garantie écrite et les certificats de conformité vous sont remis sur place.",
     icon: "CheckCircle",
   },
 ];

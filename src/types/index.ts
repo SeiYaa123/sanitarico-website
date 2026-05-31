@@ -42,6 +42,10 @@ export interface Project {
   location: string;
   before: ImageAsset;
   after: ImageAsset;
+  areaSqm?: number;
+  durationDays?: number;
+  budgetRange?: string;
+  savedPrimes?: string;
 }
 
 export interface ProcessStep {
