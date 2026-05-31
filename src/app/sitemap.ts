@@ -1,6 +1,8 @@
 import type { MetadataRoute } from "next";
 import { COMPANY, ROUTES } from "@/lib/constants";
 
+export const dynamic = "force-static";
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = COMPANY.website;
 
